@@ -95,13 +95,13 @@ fn run() -> Result<(), Infallible> {
                 pins.txd.into_pad(&mut pins.port),
             ),
         );
-    //let (mut tx, mut rx) = uart.split();
+    let (mut tx, mut rx) = uart.split();
 
     let mut led = pins.user_led.into_push_pull_output(&mut pins.port);
     led.set_low().unwrap();
     loop {
-        block!(uart.write(b'a')).unwrap();
-        if let Ok(b) = uart.read() {
+        block!(tx.write(b'a')).unwrap();
+        if let Ok(b) = rx.read() {
             if b == b'b' {
                 led.set_high().unwrap();
             }
