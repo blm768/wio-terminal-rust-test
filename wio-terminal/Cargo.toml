@@ -1,0 +1,47 @@
+[package]
+name = "wio-terminal"
+version = "0.1.0"
+authors = ["Jesse Braham <jesse@beta7.io>"]
+description = "Board support crate for the Seeed Studio Wio Terminal"
+categories = [
+    "embedded",
+    "hardware-support",
+    "no-std",
+]
+keywords = [
+    "arm",
+    "cortex-m",
+    "embedded-hal",
+    "no-std",
+]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/jessebraham/wio-terminal"
+readme = "README.md"
+edition = "2018"
+
+[dependencies]
+atsamd-hal = { path = "../atsamd/hal" }
+cortex-m-rt = { version = "~0.6", optional = true }
+ili9341 = "~0.3"
+lis3dh = { git = "https://github.com/BenBergman/lis3dh-rs", rev = "0bd78d8aaf197dba9a4570c2934bf222ca20562c" }
+
+[dev-dependencies]
+embedded-graphics = "~0.6"
+panic-halt = "~0.2"
+
+[features]
+default = ["atsamd-hal/samd51p19a", "rt", "unproven", "usb"]
+rt = ["cortex-m-rt", "atsamd-hal/samd51p19a-rt"]
+unproven = ["atsamd-hal/unproven"]
+usb = ["atsamd-hal/usb"]
+
+[profile.dev]
+incremental = false
+codegen-units = 1
+debug = true
+lto = true
+
+[profile.release]
+debug = true
+lto = true
+opt-level = "s"

@@ -1,0 +1,8 @@
+{
+    "_rust-analyzer.checkOnSave.allTargets": false,
+    "_rust-analyzer.checkOnSave.extraArgs": [
+        "--target",
+        "thumbv7m-none-eabi"
+    ],
+    "editor.formatOnSave": true
+}
